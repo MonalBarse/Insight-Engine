@@ -205,8 +205,6 @@ Silver Tables → Joins & Aggregations → Dimensional Views
 
 ### Data Model
 
-![Data Model](docs/data_model.png)
-
 **Star Schema Components:**
 
 1. **Fact Table**: `gold.fact_sales`
