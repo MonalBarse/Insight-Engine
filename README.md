@@ -50,8 +50,6 @@ Insight-Engine implements a **medallion architecture** (Bronze → Silver → Go
 
 ### System Architecture Diagram
 
-![Data Architecture](docs/data_architecture.png)
-
 ### Architectural Layers
 
 The system implements a **three-tier medallion architecture**:
@@ -120,9 +118,6 @@ The system implements a **three-tier medallion architecture**:
 ## Low-Level Design
 
 ### Data Flow Diagram
-
-![Data Flow](docs/data_flow.png)
-
 ### ETL Process Flow
 
 #### 1. Bronze Layer Loading (`bronze.load_bronze`)
@@ -256,9 +251,6 @@ Insight-Engine/
 ├── docs/                         # Documentation and diagrams
 │   ├── naming_conventions.md    # Naming standards
 │   ├── data_catalog.md          # Data dictionary for Gold layer
-│   ├── data_architecture.png    # Architecture diagram
-│   ├── data_flow.png           # ETL flow diagram
-│   ├── data_model.png          # Star schema ERD
 │   └── *.pdf                    # Additional documentation
 │
 └── README.md                     # This file
@@ -309,8 +301,6 @@ Project documentation including:
 ## Data Flow and Layers
 
 ### Layer Interactions
-
-![Data Integration](docs/data_integration.png)
 
 ### Bronze Layer (Raw/Landing Zone)
 **Purpose**: Store raw data exactly as received from source systems
