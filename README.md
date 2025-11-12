@@ -56,7 +56,7 @@ The system implements a **three-tier medallion architecture**:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        DATA SOURCES                              │
+│                        DATA SOURCES                             │
 │  ┌──────────────────┐              ┌──────────────────┐         │
 │  │   CRM System     │              │   ERP System     │         │
 │  │  - Customer Info │              │  - Location Data │         │
@@ -67,30 +67,30 @@ The system implements a **three-tier medallion architecture**:
                             │
                             ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     BRONZE LAYER (Raw Data)                      │
+│                     BRONZE LAYER (Raw Data)                     │
 │  ┌────────────────────────────────────────────────────────────┐ │
 │  │  Stored Procedure: bronze.load_bronze                      │ │
-│  │  • BULK INSERT from CSV files                             │ │
-│  │  • Exact copy of source data (no transformations)         │ │
-│  │  • Tables: crm_*, erp_*                                   │ │
+│  │  • BULK INSERT from CSV files                              │ │
+│  │  • Exact copy of source data (no transformations)          │ │
+│  │  • Tables: crm_*, erp_*                                    │ │
 │  └────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────┘
                             │
                             ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   SILVER LAYER (Cleansed Data)                   │
+│                   SILVER LAYER (Cleansed Data)                  │
 │  ┌────────────────────────────────────────────────────────────┐ │
 │  │  Stored Procedure: silver.load_silver                      │ │
-│  │  • Data cleansing and standardization                     │ │
-│  │  • Business logic transformations                         │ │
-│  │  • Date conversions and validation                        │ │
-│  │  • Key derivation and enrichment                          │ │
+│  │  • Data cleansing and standardization                      │ │
+│  │  • Business logic transformations                          │ │
+│  │  • Date conversions and validation                         │ │
+│  │  • Key derivation and enrichment                           │ │
 │  └────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────┘
                             │
                             ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                  GOLD LAYER (Business Model)                     │
+│                  GOLD LAYER (Business Model)                    │
 │  ┌────────────────────────────────────────────────────────────┐ │
 │  │  Views: Star Schema for Analytics                          │ │
 │  │  • dim_customers  (Customer Dimension)                     │ │
@@ -269,7 +269,7 @@ SQL scripts organized by data layer:
 1. **`init_database.sql`**:
    - Creates `DataWarehouse` database
    - Creates schemas: `bronze`, `silver`, `gold`
-   - **⚠️ WARNING**: Drops existing database if present
+   - **WARNING**: Drops existing database if present
 
 2. **`bronze/` Scripts**:
    - **`ddl_bronze.sql`**: Defines raw data table structures matching source formats
@@ -377,7 +377,7 @@ WHERE c.country = 'Australia';
 
 ### Current Scope
 
-#### ✅ What the System Does:
+#### What the System Does:
 1. **Data Integration**:
    - Ingests data from 2 source systems (CRM, ERP)
    - Handles 6 source tables across 3 data layers
@@ -399,7 +399,7 @@ WHERE c.country = 'Australia';
    - Truncate-and-load pattern (full refresh)
    - Performance monitoring (load duration tracking)
 
-#### ❌ Current Limitations:
+#### Current Limitations:
 1. **No Incremental Loading**: Full truncate-and-load approach (not suitable for large datasets)
 2. **No SCD Implementation**: No historical tracking of dimension changes
 3. **Manual Execution**: Stored procedures must be run manually
@@ -409,13 +409,13 @@ WHERE c.country = 'Australia';
 
 ### Future Enhancements
 
-#### 🚀 Phase 1: Performance & Scalability
+####  Phase 1: Performance & Scalability
 - [ ] **Incremental Loading**: Implement CDC (Change Data Capture) or watermark-based incremental loads
 - [ ] **Indexing Strategy**: Add clustered and non-clustered indexes on frequently queried columns
 - [ ] **Partitioning**: Implement table partitioning for large fact tables (e.g., by date)
 - [ ] **Materialized Views**: Convert Gold views to indexed views for performance
 
-#### 🚀 Phase 2: Advanced Features
+####  Phase 2: Advanced Features
 - [ ] **Slowly Changing Dimensions (SCD)**:
   - Implement Type 2 SCD for tracking historical changes
   - Add effective date columns (`valid_from`, `valid_to`)
@@ -424,13 +424,13 @@ WHERE c.country = 'Australia';
 - [ ] **Error Handling**: Implement logging tables for ETL errors and rejections
 - [ ] **Audit Trail**: Add audit columns (created_by, modified_by, modified_date)
 
-#### 🚀 Phase 3: Automation & Orchestration
+####  Phase 3: Automation & Orchestration
 - [ ] **Job Scheduling**: SQL Server Agent jobs or external orchestrator (e.g., Apache Airflow)
 - [ ] **Alerting**: Email notifications for ETL failures or data quality issues
 - [ ] **Dynamic ETL**: Metadata-driven framework for adding new sources
 - [ ] **CI/CD Pipeline**: Automate deployment of schema changes
 
-#### 🚀 Phase 4: Expanded Integration
+####  Phase 4: Expanded Integration
 - [ ] **Additional Sources**:
   - Marketing data (campaigns, leads)
   - Financial data (invoices, payments)
@@ -439,7 +439,7 @@ WHERE c.country = 'Australia';
 - [ ] **API Integration**: REST/SOAP APIs for cloud-based sources
 - [ ] **Cloud Migration**: Azure SQL Database or Synapse Analytics
 
-#### 🚀 Phase 5: Advanced Analytics
+####  Phase 5: Advanced Analytics
 - [ ] **Aggregation Tables**: Pre-aggregated summary tables for dashboards
 - [ ] **Predictive Models**: Integrate ML models for forecasting
 - [ ] **Data Quality Dashboards**: Real-time monitoring of data quality metrics
@@ -710,16 +710,16 @@ DATA_SOURCE_PATH=C:\sql\dwh_project\datasets
 The system includes comprehensive quality validation:
 
 #### Silver Layer Checks (`tests/quality_checks_silver.sql`)
-- ✅ **Primary Key Integrity**: No NULL or duplicate keys
-- ✅ **Data Cleansing**: No unwanted spaces in string fields
-- ✅ **Standardization**: Categorical values are normalized
-- ✅ **Date Validation**: No future dates or invalid date ranges
-- ✅ **Business Rules**: Sales = Quantity × Price consistency
+-  **Primary Key Integrity**: No NULL or duplicate keys
+-  **Data Cleansing**: No unwanted spaces in string fields
+-  **Standardization**: Categorical values are normalized
+-  **Date Validation**: No future dates or invalid date ranges
+-  **Business Rules**: Sales = Quantity × Price consistency
 
 #### Gold Layer Checks (`tests/quality_checks_gold.sql`)
-- ✅ **Surrogate Key Uniqueness**: Customer and product keys are unique
-- ✅ **Referential Integrity**: All fact records link to valid dimensions
-- ✅ **Data Model Connectivity**: Joins between fact and dimensions succeed
+- **Surrogate Key Uniqueness**: Customer and product keys are unique
+- **Referential Integrity**: All fact records link to valid dimensions
+- **Data Model Connectivity**: Joins between fact and dimensions succeed
 
 ### Running Quality Checks
 ```sql
@@ -782,13 +782,9 @@ EXEC master.dbo.sp_executesql @statement = N'
 
 This project is for educational and demonstration purposes.
 
-## Contact
-
-For questions or support, please open an issue in the GitHub repository.
-
 ---
 
-**Project Status**: ✅ Active Development
+**Project Status**: Active Development
 
 **Last Updated**: 2025
 
